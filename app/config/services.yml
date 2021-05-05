@@ -472,6 +472,10 @@ services:
         autowire: true
         autoconfigure: true
 
+    AppBundle\Site\Form\FeuilleType:
+        autowire: true
+        autoconfigure: true
+
     AppBundle\Event\Ticket\SponsorTicketHelper:
         autowire: true
 

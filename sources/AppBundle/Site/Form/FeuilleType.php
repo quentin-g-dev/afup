@@ -2,7 +2,6 @@
 
 namespace AppBundle\Site\Form;
 
-//use Afup\Site\Corporate\Feuilles;
 use AppBundle\Site\Model\Feuille;
 use AppBundle\Site\Model\Repository\FeuilleRepository;
 use Symfony\Component\Form\AbstractType;
@@ -21,10 +20,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FeuilleType extends AbstractType 
 {
-    const POSITIONS_RUBRIQUES = 9;
+    const POSITIONS_FEUILLES = 9;
 
     private $feuilleRepository;
-    private $userRepository;
 
     public function __construct(FeuilleRepository $feuilleRepository)
     {
@@ -33,10 +31,9 @@ class FeuilleType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {       
-        $feuilles = (new Feuilles($GLOBALS['AFUP_DB']))->obtenirListe('nom, id', 'nom', true);
 
         $positions = [];
-        for ($i = self::POSITIONS_RUBRIQUES ; $i >= -(self::POSITIONS_RUBRIQUES); $i--) {
+        for ($i = self::POSITIONS_FEUILLES ; $i >= -(self::POSITIONS_FEUILLES); $i--) {
             $positions[$i] = $i;
         }
 
@@ -44,6 +41,7 @@ class FeuilleType extends AbstractType
         foreach ($this->feuilleRepository->getAll() as $feuille) {
             $feuilles[$feuille->getNom()] = $feuille->getId();
         }
+        
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la feuille',
@@ -59,7 +57,7 @@ class FeuilleType extends AbstractType
                 ],
             ])
 
-            ->add('id_parent', ChoiceType::class, [
+            ->add('idParent', ChoiceType::class, [
                 'label' => 'Parent',
                 'choices' => $feuilles,
                 'required' => false,    

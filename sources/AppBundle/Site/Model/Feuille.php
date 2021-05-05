@@ -3,7 +3,6 @@ namespace AppBundle\Site\Model;
 
 use CCMBenchmark\Ting\Entity\NotifyProperty;
 use CCMBenchmark\Ting\Entity\NotifyPropertyInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class Feuille implements NotifyPropertyInterface 
 {
@@ -17,7 +16,7 @@ class Feuille implements NotifyPropertyInterface
     const ID_FEUILLE_NOS_ACTIONS = 96;
 
     public $id;
-    public $id_parent;
+    public $idParent;
     public $nom;
     public $lien;
     public $alt;
@@ -47,15 +46,14 @@ class Feuille implements NotifyPropertyInterface
     }
 
     public function getIdParent() {
-        return $this->id_parent;
+        return $this->idParent;
     }
     
     public function setIdParent($id) {
-        $this->propertyChanged('id_parent', $this->id_parent, $id);
-        $this->id_parent = $id;
+        $this->propertyChanged('idParent', $this->idParent, $id);
+        $this->idParent = $id;
     }
 
-    
     public function getLien() {
         return $this->lien;
     }
@@ -114,107 +112,9 @@ class Feuille implements NotifyPropertyInterface
         return $this->patterns;
     }
     
-    public function setPatterns ($patterns = 0) {
-        $patterns = is_null($patterns) ? 0 : $patterns;
+    public function setPatterns ($patterns) {
         $this->propertyChanged('patterns', $this->patterns, $patterns);
         $this->patterns = $patterns;
     }
-
-   
-    function inserer()
-    {
-        if ($this->id > 0) {
-            $this->supprimer();
-        }
-        $requete = 'INSERT INTO afup_site_feuille
-        			SET
-        			id_parent = ' . $this->bdd->echapper($this->id_parent) . ',
-        			nom       = ' . $this->bdd->echapper($this->nom) . ',
-        			lien      = ' . $this->bdd->echapper($this->lien) . ',
-        			alt       = ' . $this->bdd->echapper($this->alt) . ',
-        			image     = ' . $this->bdd->echapper($this->image) . ',
-        			position  = ' . $this->bdd->echapper($this->position) . ',
-        			date      = ' . $this->bdd->echapper($this->date) . ',
-        			patterns  = ' . $this->bdd->echapper($this->patterns) . ',
-        			etat    = ' . $this->bdd->echapper($this->etat);
-        if ($this->id > 0) {
-            $requete .= ', id = ' . $this->bdd->echapper($this->id);
-        }
-
-        return $this->bdd->executer($requete);
-    }
-
-    function modifier()
-    {
-        $requete = 'UPDATE afup_site_feuille
-        			SET
-        			id_parent = ' . $this->bdd->echapper($this->id_parent) . ',
-        			nom       = ' . $this->bdd->echapper($this->nom) . ',
-        			lien      = ' . $this->bdd->echapper($this->lien) . ',
-        			alt       = ' . $this->bdd->echapper($this->alt) . ',
-        			image     = ' . $this->bdd->echapper($this->image) . ',
-        			position  = ' . $this->bdd->echapper($this->position) . ',
-        			date      = ' . $this->bdd->echapper($this->date) . ',
-        			patterns  = ' . $this->bdd->echapper($this->patterns) . ',
-        			etat      = ' . $this->bdd->echapper($this->etat) . '
-        			WHERE id  = ' . (int)$this->id;
-
-        return $this->bdd->executer($requete);
-    }
-
-    function remplir($f)
-    {
-        $this->id = $f['id'];
-        $this->id_parent = $f['id_parent'];
-        $this->nom = $f['nom'];
-        $this->lien = $f['lien'];
-        $this->alt = $f['alt'];
-        $this->image = $f['image'];
-        $this->position = $f['position'];
-        $this->date = $f['date'];
-        $this->etat = $f['etat'];
-        $this->patterns = $f['patterns'];
-    }
-
-    function exportable()
-    {
-        return array(
-            'id' => $this->id,
-            'id_parent' => $this->id_parent,
-            'nom' => $this->nom,
-            'lien' => $this->lien,
-            'alt' => $this->alt,
-            'image' => $this->image,
-            'position' => $this->position,
-            'date' => date('Y-m-d', $this->date),
-            'etat' => $this->etat,
-            'patterns' => $this->patterns,
-        );
-    }
-
-    function charger()
-    {
-        $requete = 'SELECT *
-                    FROM afup_site_feuille
-                    WHERE id = ' . $this->bdd->echapper($this->id);
-        $f = $this->bdd->obtenirEnregistrement($requete);
-        $this->remplir($f);
-    }
-
-    function supprimer()
-    {
-        $requete = 'DELETE FROM afup_site_feuille WHERE id = ' . $this->bdd->echapper($this->id);
-        return $this->bdd->executer($requete);
-    }
-
-    function positionable()
-    {
-        $positions = array();
-        for ($i = 9; $i >= -9; $i--) {
-            $positions[$i] = $i;
-        }
-        return $positions;
-    }
-
     
 }

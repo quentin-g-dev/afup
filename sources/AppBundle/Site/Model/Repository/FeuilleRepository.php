@@ -57,7 +57,7 @@ class FeuilleRepository extends Repository implements MetadataInitializer
         ])
         ->addField([
             'columnName' => 'id_parent',
-            'fieldName' => 'id_parent',
+            'fieldName' => 'idParent',
             'type' => 'int',
         ])
         ->addField([
@@ -88,16 +88,7 @@ class FeuilleRepository extends Repository implements MetadataInitializer
         ->addField([
             'columnName' => 'date',
             'fieldName' => 'date',
-            'type' => 'datetime',
-            'serializer_options' => [
-                'unserialize' => [
-                    'unSerializeUseFormat' => true, 
-                    'format' => 'U',
-                ],
-                'serialize' => [
-                    'format' => 'U',
-                ],            
-            ],
+            'type' => 'int',
         ])
         ->addField([
             'columnName' => 'etat',
