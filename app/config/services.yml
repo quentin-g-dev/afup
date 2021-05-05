@@ -77,6 +77,16 @@ services:
         arguments :
             $storageDir: '%kernel.project_dir%/htdocs/templates/site/images'
 
+    AppBundle\Controller\Admin\Site\AddFeuilleAction:
+        autowire: true
+        arguments :
+           $storageDir: '%kernel.project_dir%/htdocs/templates/site/images'
+
+    AppBundle\Controller\Admin\Site\EditFeuilleAction:
+        autowire: true
+        arguments :
+            $storageDir: '%kernel.project_dir%/htdocs/templates/site/images'
+
     AppBundle\Controller\Admin\Members\BadgeNewAction:
         autowire: true
         arguments:
@@ -442,8 +452,10 @@ services:
         factory: ["@ting", get]
         arguments: [AppBundle\Site\Model\Repository\RubriqueRepository]
 
-
-
+    AppBundle\Site\Model\Repository\FeuilleRepository:
+        class: AppBundle\Site\Model\Repository\FeuilleRepository
+        factory: ["@ting", get]
+        arguments: [AppBundle\Site\Model\Repository\FeuilleRepository]
 
     AppBundle\Site\Model\Repository\ArticleRepository:
         class: AppBundle\Site\Model\Repository\ArticleRepository
