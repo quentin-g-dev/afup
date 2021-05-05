@@ -8,35 +8,28 @@
 
     {{ form_start(form) }}
 
-        <div class="ui segment">
-            <h2 class="ui header">Feuille</h2>
-            <div class="ui clearing divider"></div>
-            <div>
-                <div class="ui form">
-                    {{ form_row(form.nom) }}
-                    {{ form_row(form.lien) }}
-                    {{ form_row(form.alt) }}
-                    {{ form_row(form.image) }}
-                    {% if icone  %}
-                        <span>Actuellement : {{ icone }}</span>
-                        <img src="{{ icone }}" >
-                    {% endif %}
-                </div>
-            </div>
+    <div class="ui segment">
+            {% if subTitle  %}
+                <h3>{{ subTitle }}</h3>
+            {% endif %}
+        <h2 class="ui header">feuille</h2>
+        <div class="ui clearing divider"></div>
+        <div class="ui form">
+            {{ form_row(form.id_parent) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.lien) }}
+            {{ form_row(form.alt) }}
+            {{ form_row(form.image) }}
+            {% if image  %}
+                <span>Actuellement : {{ image }}</span>
+                <img src="{{ image }}" >
+            {% endif %}
+            {{ form_row(form.date) }}
+            {{ form_row(form.position) }} 
+            {{ form_row(form.etat) }}
+            {{ form_row(form.patterns) }}
         </div>
-
-        <div class="ui segment">
-            <h2 class="ui header">Méta-données</h2>
-            <div class="ui clearing divider"></div>
-            <div>
-                <div class="ui form">
-                    {{ form_row(form.date) }}
-                     {{ form_row(form.position) }} 
-                    {{ form_row(form.etat) }}
-                    {{ form_row(form.patterns) }}
-                </div>
-            </div>
-        </div>
+        
         <div class="ui segment">
             <div>
                 <div class="ui form">

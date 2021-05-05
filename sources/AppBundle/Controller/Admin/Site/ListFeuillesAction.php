@@ -23,7 +23,7 @@ class ListFeuillesAction
 
     public function __invoke(Request $request)
     {
-        $fields = ['date', 'nom', 'etat'];
+        $fields = ['date', 'nom', 'etat', 'position'];
 
         $sort = $request->query->get('sort', 'nom');
         if (in_array($sort, $fields) === false) {

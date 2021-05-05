@@ -63,7 +63,7 @@ class EditFeuilleAction extends SiteBaseController
       
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('icone')->getData();
+            $file = $form->get('image')->getData();
             if ($file) {
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = hash('sha1', $originalFilename);
@@ -81,11 +81,12 @@ class EditFeuilleAction extends SiteBaseController
             return new RedirectResponse($this->urlGenerator->generate('admin_site_feuilles_list', ['filter' => $feuille->getNom()]));
         }
         
-        $icone = $feuille->getIcone() !== null ? '/templates/site/images/' . $feuille->getIcone() : false;
+        $image = $feuille->getImage() !== null ? '/templates/site/images/' . $feuille->getImage() : false;
         return new Response($this->twig->render('admin/site/feuille_form.html.twig', [
-            'form' => $form->createView(),
-            'icone' => $icone,
             'formTitle' => 'Modifier une feuille',
+            'subTitle' => 'Feuille '. $feuille->getNom(),
+            'form' => $form->createView(),
+            'image' => $image,
         ]));
     }
 }

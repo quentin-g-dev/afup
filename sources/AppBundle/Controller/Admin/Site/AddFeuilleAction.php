@@ -57,7 +57,7 @@ class AddFeuilleAction extends SiteBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('icone')->getData();
+            $file = $form->get('image')->getData();
             if ($file) {
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = hash('sha1', $originalFilename);
@@ -82,7 +82,8 @@ class AddFeuilleAction extends SiteBaseController
         return new Response($this->twig->render('admin/site/feuille_form.html.twig', [
             'form' => $form->createView(),
             'formTitle' => 'Ajouter une feuille',
-            'icone' => false,
+            'subtitle' => false,
+            'image' => false,
         ]));
     }
 }
