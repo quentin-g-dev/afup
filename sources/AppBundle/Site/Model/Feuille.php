@@ -20,10 +20,10 @@ class Feuille implements NotifyPropertyInterface
     private $nom;
     private $lien;
     private $alt;
-    private $image;
     private $position;
     private $date;
     private $etat;
+    private $image;
     private $patterns;
 
     public function getId() {
@@ -72,32 +72,23 @@ class Feuille implements NotifyPropertyInterface
         $this->propertyChanged('alt', $this->alt, $alt);
     }
 
-    public function getImage() {
-        return $this->image;
-    }
-    
-    public function setImage(string $image) {
-        $this->propertyChanged('image', $this->image, $image);
-        $this->image = $image;
-    }
-
     public function getPosition() {
         return $this->position;
     }
     
-    public function setPosition(string $position) {
+    public function setPosition(int $position) {
         $this->propertyChanged('position', $this->position, $position);
         $this->position = $position;
     }
 
     public function getDate() {
-        return  new \DateTime (date('d-M-y', $this->date));
+        return $this->date;
     }
     
-    public function setDate($date) {
-        $date = is_null($date) ? $date : $date->getTimestamp();
+    public function setDate(\DateTime $date = new \DateTime('now')) {
         $this->propertyChanged('date', $this->date, $date);
         $this->date = $date;
+        return $this;
     }
 
     public function getEtat() {
@@ -107,6 +98,15 @@ class Feuille implements NotifyPropertyInterface
     public function setEtat(int $etat) {
         $this->propertyChanged('etat', $this->etat, $etat);
         $this->etat = $etat;
+    }
+
+    public function getImage() {
+        return $this->image;
+    }
+    
+    public function setImage(string $image) {
+        $this->propertyChanged('image', $this->image, $image);
+        $this->image = $image;
     }
 
     public function getPatterns () {
