@@ -38,7 +38,7 @@ class FeuilleType extends AbstractType
         }
 
         $feuilles = [];
-        foreach ($this->feuilleRepository->getAllFeuilles() as $feuille) {
+        foreach ($this->feuilleRepository->getAll() as $feuille) {
             $feuilles[$feuille->getNom()] = $feuille->getId();
         }
         

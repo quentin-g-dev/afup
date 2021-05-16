@@ -9,13 +9,13 @@
     {{ form_start(form) }}
 
     <div class="ui segment">
-            {% if subTitle  %}
+            {% if subTitle == true  %}
                 <h3>{{ subTitle }}</h3>
             {% endif %}
         <h2 class="ui header">feuille</h2>
         <div class="ui clearing divider"></div>
         <div class="ui form">
-            {{ form_row(form.id_parent) }}
+            {{ form_row(form.idParent) }}
             {{ form_row(form.nom) }}
             {{ form_row(form.lien) }}
             {{ form_row(form.alt) }}

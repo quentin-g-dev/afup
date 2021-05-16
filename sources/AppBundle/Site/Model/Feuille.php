@@ -30,7 +30,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->id;
     }
      
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->propertyChanged('id', $this->id, $id);
         $this->id = $id;
@@ -40,7 +40,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->nom;
     }
     
-    public function setNom(string $nom) {
+    public function setNom($nom) {
         $this->propertyChanged('nom', $this->nom, $nom);
         $this->nom = $nom;
     }
@@ -49,7 +49,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->idParent;
     }
     
-    public function setIdParent(int $id) {
+    public function setIdParent($id) {
         $this->propertyChanged('idParent', $this->idParent, $id);
         $this->idParent = $id;
     }
@@ -58,7 +58,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->lien;
     }
     
-    public function setLien(string $lien) {
+    public function setLien($lien) {
         $this->propertyChanged('lien', $this->lien, $lien);
         $this->lien = $lien;
     }
@@ -67,7 +67,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->alt;
     }
     
-    public function setAlt(string $alt) {
+    public function setAlt($alt) {
         $this->alt = $alt;
         $this->propertyChanged('alt', $this->alt, $alt);
     }
@@ -76,7 +76,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->position;
     }
     
-    public function setPosition(int $position) {
+    public function setPosition($position) {
         $this->propertyChanged('position', $this->position, $position);
         $this->position = $position;
     }
@@ -85,7 +85,8 @@ class Feuille implements NotifyPropertyInterface
         return $this->date;
     }
     
-    public function setDate(\DateTime $date = new \DateTime('now')) {
+    public function setDate($date) {
+        $date = $date == null ? new \DateTime('now') : $date;
         $this->propertyChanged('date', $this->date, $date);
         $this->date = $date;
         return $this;
@@ -95,7 +96,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->etat;
     }
     
-    public function setEtat(int $etat) {
+    public function setEtat($etat) {
         $this->propertyChanged('etat', $this->etat, $etat);
         $this->etat = $etat;
     }
@@ -104,7 +105,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->image;
     }
     
-    public function setImage(string $image) {
+    public function setImage($image) {
         $this->propertyChanged('image', $this->image, $image);
         $this->image = $image;
     }
@@ -113,7 +114,7 @@ class Feuille implements NotifyPropertyInterface
         return $this->patterns;
     }
     
-    public function setPatterns (string $patterns) {
+    public function setPatterns ($patterns) {
         $this->propertyChanged('patterns', $this->patterns, $patterns);
         $this->patterns = $patterns;
     }

@@ -82,7 +82,7 @@ class AddFeuilleAction extends SiteBaseController
         return new Response($this->twig->render('admin/site/feuille_form.html.twig', [
             'form' => $form->createView(),
             'formTitle' => 'Ajouter une feuille',
-            'subtitle' => false,
+            'subTitle' => false,
             'image' => false,
         ]));
     }
