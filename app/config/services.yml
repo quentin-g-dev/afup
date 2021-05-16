@@ -67,22 +67,22 @@ services:
         autowire: true
         autoconfigure: true
 
-    AppBundle\Controller\Admin\Site\AddRubriqueAction:
+    AppBundle\Controller\Admin\Site\Rubriques\AddRubriqueAction:
         autowire: true
         arguments :
             $storageDir: '%kernel.project_dir%/htdocs/templates/site/images'
 
-    AppBundle\Controller\Admin\Site\EditRubriqueAction:
+    AppBundle\Controller\Admin\Site\Rubriques\EditRubriqueAction:
         autowire: true
         arguments :
             $storageDir: '%kernel.project_dir%/htdocs/templates/site/images'
 
-    AppBundle\Controller\Admin\Site\AddFeuilleAction:
+    AppBundle\Controller\Admin\Site\Feuilles\AddFeuilleAction:
         autowire: true
         arguments :
            $storageDir: '%kernel.project_dir%/htdocs/templates/site/images'
 
-    AppBundle\Controller\Admin\Site\EditFeuilleAction:
+    AppBundle\Controller\Admin\Site\Feuilles\EditFeuilleAction:
         autowire: true
         arguments :
             $storageDir: '%kernel.project_dir%/htdocs/templates/site/images'

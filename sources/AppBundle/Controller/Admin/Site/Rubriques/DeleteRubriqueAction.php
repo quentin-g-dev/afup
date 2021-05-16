@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Admin\Site;
+namespace AppBundle\Controller\Admin\Site\Rubriques;
 
 use Afup\Site\Logger\DbLoggerTrait;
 use AppBundle\Site\Model\Repository\RubriqueRepository;

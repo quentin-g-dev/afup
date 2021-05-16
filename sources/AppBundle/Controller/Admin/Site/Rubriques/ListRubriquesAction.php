@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Admin\Site;
+namespace AppBundle\Controller\Admin\Site\Rubriques;
 
 use AppBundle\Site\Model\Repository\RubriqueRepository;
 use Symfony\Component\HttpFoundation\Request;

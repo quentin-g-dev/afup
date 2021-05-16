@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Admin\Site;
+namespace AppBundle\Controller\Admin\Site\Feuilles;
 
 use AppBundle\Site\Model\Repository\FeuilleRepository;
 use Symfony\Component\HttpFoundation\Request;

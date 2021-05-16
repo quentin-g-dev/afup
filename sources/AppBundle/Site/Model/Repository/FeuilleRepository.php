@@ -76,11 +76,6 @@ class FeuilleRepository extends Repository implements MetadataInitializer
             'type' => 'string',
         ])
         ->addField([
-            'columnName' => 'image',
-            'fieldName' => 'image',
-            'type' => 'string',
-        ])
-        ->addField([
             'columnName' => 'position',
             'fieldName' => 'position',
             'type' => 'int',
@@ -88,12 +83,26 @@ class FeuilleRepository extends Repository implements MetadataInitializer
         ->addField([
             'columnName' => 'date',
             'fieldName' => 'date',
-            'type' => 'int',
+            'type' => 'datetime',
+            'serializer_options' => [
+                'unserialize' => [
+                    'unSerializeUseFormat' => true, 
+                    'format' => 'U',
+                ],
+                'serialize' => [
+                    'format' => 'U',
+                ],            
+            ],
         ])
         ->addField([
             'columnName' => 'etat',
             'fieldName' => 'etat',
             'type' => 'int',
+        ])
+        ->addField([
+            'columnName' => 'image',
+            'fieldName' => 'image',
+            'type' => 'string',
         ])
         ->addField([
             'columnName' => 'patterns',

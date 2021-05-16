@@ -1,11 +1,12 @@
 <?php
 
-namespace AppBundle\Controller\Admin\Site;
+namespace AppBundle\Controller\Admin\Site\Feuilles;
 
 use AppBundle\Controller\SiteBaseController;
 use Afup\Site\Logger\DbLoggerTrait;
-use AppBundle\Site\Form\RubriqueType;
-use AppBundle\Site\Model\Repository\RubriqueRepository;
+use AppBundle\Site\Form\FeuilleType;
+use AppBundle\Site\Model\Repository\FeuilleRepository;
+use AppBundle\Site\Model\Feuille;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Exception;
 
-class EditRubriqueAction extends SiteBaseController
+class AddFeuilleAction extends SiteBaseController
 {
     use DbLoggerTrait;
 
@@ -28,64 +29,61 @@ class EditRubriqueAction extends SiteBaseController
     /** @var Environment */
     private $twig;
 
-    /** @var RubriqueRepository */
-    private $rubriqueRepository;
+    /** @var FeuilleRepository */
+    private $feuilleRepository;
 
     /** @var string */
     private $storageDir;
 
     public function __construct(
-        RubriqueRepository $rubriqueRepository,
+        FeuilleRepository $feuilleRepository,
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         FlashBagInterface $flashBag,
         $storageDir
     ) {
-        $this->rubriqueRepository =  $rubriqueRepository;
+        $this->feuilleRepository =  $feuilleRepository;
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->flashBag = $flashBag;
         $this->storageDir = $storageDir;
     }
-    
-    /**
-     * @param int $id
-     * @param Request $request
-     * @return RedirectResponse|Response
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function __invoke($id,Request $request)
+
+    public function __invoke(Request $request)
     {
-        $rubrique = $this->rubriqueRepository->get($id);
-        $form = $this->createForm(RubriqueType::class, $rubrique);
-      
+        $feuille = new Feuille();
+        $form = $this->createForm(FeuilleType::class, $feuille);
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('icone')->getData();
+            $file = $form->get('image')->getData();
             if ($file) {
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = hash('sha1', $originalFilename);
                 $newFilename = $safeFilename . '.' . $file->guessExtension();
                 try {
                     $file->move($this->storageDir, $newFilename);
-                    $rubrique->setIcone($newFilename);
+                    $feuille->setIcone($newFilename);
                 } catch (FileException $e) {
                     $this->flashBag->add('error', 'Une erreur est survenue lors du traitement de l\'icône');
                 }
             }
-            $this->rubriqueRepository->save($rubrique);
-            $this->log('Modification de la Rubrique ' . $rubrique->getNom());
-            $this->flashBag->add('notice', 'La rubrique '. $rubrique->getNom() . ' a été modifiée');
-            return new RedirectResponse($this->urlGenerator->generate('admin_site_rubriques_list', ['filter' => $rubrique->getNom()]));
+            try {
+                $this->feuilleRepository->save($feuille);
+                $this->log('Ajout de la feuille ' . $feuille->getNom());
+                $this->flashBag->add('notice', 'La feuille '. $feuille->getNom() .' a été ajoutée');
+                return new RedirectResponse($this->urlGenerator->generate('admin_site_feuilles_list', ['filter' => $feuille->getNom()]));
+            } catch (Exception $e) {
+                $this->flashBag->add('error', 'Une erreur est survenue  lors de l\'ajout de la feuille');
+            }
         }
-        
-        $icone = $rubrique->getIcone() !== null ? '/templates/site/images/' . $rubrique->getIcone() : false;
-        return new Response($this->twig->render('admin/site/rubrique_form.html.twig', [
+
+        return new Response($this->twig->render('admin/site/feuille_form.html.twig', [
             'form' => $form->createView(),
-            'icone' => $icone,
-            'formTitle' => 'Modifier une rubrique',
+            'formTitle' => 'Ajouter une feuille',
+            'subtitle' => false,
+            'image' => false,
         ]));
     }
 }
