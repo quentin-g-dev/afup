@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class RubriqueType extends AbstractType
 {
     const POSITIONS_RUBRIQUES = 9;
+
     private $feuilleRepository;
     private $rubriqueRepository;
     private $userRepository;
@@ -25,7 +26,7 @@ class RubriqueType extends AbstractType
     public function __construct(FeuilleRepository $feuilleRepository, RubriqueRepository $rubriqueRepository, UserRepository $userRepository)
     {
         $this->rubriqueRepository = $rubriqueRepository;
-        $this->feuilleRepository = $feuilleRepository;
+        $this->rubriqueRepository = $rubriqueRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -33,14 +34,14 @@ class RubriqueType extends AbstractType
     {
         $users = [];
         foreach ($this->userRepository->getAll() as $user) {
-           $users[$user->getLastName() . ' ' . $user->getFirstName()] = $user->getId();
+            $users[$user->getLastName() . ' ' . $user->getFirstName()] = $user->getId();
         }
         $feuilles = [];
         foreach ($this->feuilleRepository->getAll() as $feuille) {
             $feuilles[$feuille->getNom()] = $feuille->getId();
         }
         $positions = [];
-        for ($i = self::POSITIONS_RUBRIQUES; $i >= -(self::POSITIONS_RUBRIQUES); $i--) {
+        for ($i = self::POSITIONS_RUBRIQUES ; $i >= -(self::POSITIONS_RUBRIQUES); $i--) {
             $positions[$i] = $i;
         }
         $rubriques = [];
@@ -89,7 +90,7 @@ class RubriqueType extends AbstractType
                     new Assert\NotBlank(),
                 ],
             ])
-            ->add('icone', FileType::class,[
+            ->add('icone', FileType::class, [
                 'label' => 'Icône (Taille requise : 43 x 37 pixels)',
                 'required' => false,
                 'data_class' => null,
@@ -100,7 +101,7 @@ class RubriqueType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('raccourci', TextType::class,[
+            ->add('raccourci', TextType::class, [
                 'required' => true,
                 'label' => 'Raccourci',
                 'attr' => [
