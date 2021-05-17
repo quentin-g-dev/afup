@@ -2,22 +2,17 @@
 
 namespace AppBundle\Site\Form;
 
-use AppBundle\Site\Model\Feuille;
 use AppBundle\Site\Model\Repository\FeuilleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FeuilleType extends AbstractType 
+class FeuilleType extends AbstractType
 {
     const POSITIONS_FEUILLES = 9;
 
@@ -29,8 +24,7 @@ class FeuilleType extends AbstractType
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {       
-
+    {
         $positions = [];
         for ($i = self::POSITIONS_FEUILLES ; $i >= -(self::POSITIONS_FEUILLES); $i--) {
             $positions[$i] = $i;
@@ -40,7 +34,6 @@ class FeuilleType extends AbstractType
         foreach ($this->feuilleRepository->getAll() as $feuille) {
             $feuilles[$feuille->getNom()] = $feuille->getId();
         }
-        
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la feuille',
@@ -59,10 +52,10 @@ class FeuilleType extends AbstractType
             ->add('idParent', ChoiceType::class, [
                 'label' => 'Parent',
                 'choices' => $feuilles,
-                'required' => false,    
+                'required' => false,
                 'constraints' => [
                     new Assert\Type("integer"),
-                ],            
+                ],
             ])
 
             ->add('lien', TextType::class, [
@@ -94,10 +87,9 @@ class FeuilleType extends AbstractType
                 'required' => false,
                 'data_class' => null,
                 'constraints' => [
-                    new Assert\Image(),   
+                    new Assert\Image(),
                 ]
             ])
-
 
             ->add('date', DateType::class,[
                 'required' => false,
@@ -109,7 +101,7 @@ class FeuilleType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Type("datetime"),
-                ],   
+                ],
             ])
 
             ->add('position', ChoiceType::class, [
@@ -125,13 +117,13 @@ class FeuilleType extends AbstractType
                 'label' => 'Etat',
                 'required' => false,
                 'choices' => [
-                    'Hors ligne' => -1, 
-                    'En attente' => 0, 
+                    'Hors ligne' => -1,
+                    'En attente' => 0,
                     'En ligne' => 1,
                 ],
                 'constraints' => [
                     new Assert\Type("integer"),
-                ],   
+                ],
             ])
 
             ->add('patterns', TextAreaType::class,[
@@ -144,8 +136,6 @@ class FeuilleType extends AbstractType
                     new Assert\Type('string'),
                 ],
             ])
-
         ;
     }
-
 }

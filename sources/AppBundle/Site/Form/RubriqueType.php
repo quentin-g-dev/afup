@@ -18,7 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class RubriqueType extends AbstractType
 {
     const POSITIONS_RUBRIQUES = 9;
-
     private $feuilleRepository;
     private $rubriqueRepository;
     private $userRepository;
@@ -36,22 +35,18 @@ class RubriqueType extends AbstractType
         foreach ($this->userRepository->getAll() as $user) {
            $users[$user->getLastName() . ' ' . $user->getFirstName()] = $user->getId();
         }
-
         $feuilles = [];
         foreach ($this->feuilleRepository->getAll() as $feuille) {
             $feuilles[$feuille->getNom()] = $feuille->getId();
         }
-
         $positions = [];
-        for ($i = self::POSITIONS_RUBRIQUES ; $i >= -(self::POSITIONS_RUBRIQUES); $i--) {
+        for ($i = self::POSITIONS_RUBRIQUES; $i >= -(self::POSITIONS_RUBRIQUES); $i--) {
             $positions[$i] = $i;
         }
-
         $rubriques = [];
         foreach ($this->rubriqueRepository->getAll() as $rubrique) {
             $rubriques[$rubrique->getNom()] = $rubrique->getId();
         }
-
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la rubrique',
