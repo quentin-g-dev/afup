@@ -81,7 +81,6 @@ class FeuilleRepository extends Repository implements MetadataInitializer
             'columnName' => 'date',
             'fieldName' => 'date',
             'type' => 'datetime',
-            'view_timezone' => 'Europe/Paris',
             'serializer_options' => [
                 'unserialize' => [
                     'unSerializeUseFormat' => true,

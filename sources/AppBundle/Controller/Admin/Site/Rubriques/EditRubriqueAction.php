@@ -58,7 +58,6 @@ class EditRubriqueAction extends SiteBaseController
     {
         $rubrique = $this->rubriqueRepository->get($id);
         $form = $this->createForm(RubriqueType::class, $rubrique);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('icone')->getData();

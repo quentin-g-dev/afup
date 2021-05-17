@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class FeuilleType extends AbstractType 
 {
     const POSITIONS_FEUILLES = 9;
