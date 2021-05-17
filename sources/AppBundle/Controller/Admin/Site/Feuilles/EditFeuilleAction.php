@@ -79,6 +79,7 @@ class EditFeuilleAction extends SiteBaseController
             'subTitle' => 'Feuille ' . $feuille->getNom(),
             'form' => $form->createView(),
             'image' => $image,
+            'submitLabel' => 'Modifier',
         ]));
     }
 }

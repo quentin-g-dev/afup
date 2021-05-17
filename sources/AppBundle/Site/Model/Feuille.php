@@ -68,8 +68,8 @@ class Feuille implements NotifyPropertyInterface
     }
     
     public function setAlt($alt) {
-        $this->alt = $alt;
         $this->propertyChanged('alt', $this->alt, $alt);
+        $this->alt = $alt;
     }
 
     public function getPosition() {
@@ -86,7 +86,6 @@ class Feuille implements NotifyPropertyInterface
     }
     
     public function setDate($date) {
-        $date = $date == null ? new \DateTime('now') : $date;
         $this->propertyChanged('date', $this->date, $date);
         $this->date = $date;
         return $this;

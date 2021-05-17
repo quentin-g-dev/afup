@@ -71,6 +71,7 @@ class AddFeuilleAction extends SiteBaseController
             'formTitle' => 'Ajouter une feuille',
             'subTitle' => false,
             'image' => false,
+            'submitLabel' => 'Ajouter',
         ]));
     }
 }

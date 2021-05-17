@@ -87,7 +87,6 @@ class FeuilleType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Length(['max' => 255]),
-                    new Assert\NotBlank(),
                 ],
             ])
 
@@ -105,7 +104,6 @@ class FeuilleType extends AbstractType
                 'required' => false,
                 'label' => 'Date',
                 'input'=>'datetime',
-                'data' => new \Datetime(),
                 'years' => range(2001,date('Y')),
                 'attr' => [
                     'style' => 'display: flex;',
