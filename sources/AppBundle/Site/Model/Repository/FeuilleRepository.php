@@ -11,7 +11,6 @@ use CCMBenchmark\Ting\Serializer\SerializerFactoryInterface;
 
 class FeuilleRepository extends Repository implements MetadataInitializer
 {
-
     public function getAllFeuilles($ordre = 'nom', $direction='asc', $filtre = '%')
     {
         if ($direction !== 'desc' && $direction !== 'asc') {
@@ -28,15 +27,13 @@ class FeuilleRepository extends Repository implements MetadataInitializer
         if ($columnNameFound === false) {
             $ordre = 'nom';
         }
-        
         $requete = 'SELECT  * FROM afup_site_feuille WHERE afup_site_feuille.nom LIKE :filtre ';
         $requete .= 'ORDER BY ' . $ordre . ' ' . $direction;
         $query = $this->getQuery($requete);
         $query->setParams(['filtre' => '%' . $filtre . '%']);
-
         return $query->query($this->getCollection(new HydratorArray()));
     }
-   
+
     /**
      * @inheritDoc
      */
@@ -86,12 +83,12 @@ class FeuilleRepository extends Repository implements MetadataInitializer
             'type' => 'datetime',
             'serializer_options' => [
                 'unserialize' => [
-                    'unSerializeUseFormat' => true, 
+                    'unSerializeUseFormat' => true,
                     'format' => 'U',
                 ],
                 'serialize' => [
                     'format' => 'U',
-                ],            
+                ],
             ],
         ])
         ->addField([

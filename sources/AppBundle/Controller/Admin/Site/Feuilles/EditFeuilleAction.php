@@ -2,18 +2,16 @@
 
 namespace AppBundle\Controller\Admin\Site\Feuilles;
 
-use AppBundle\Controller\SiteBaseController;
 use Afup\Site\Logger\DbLoggerTrait;
+use AppBundle\Controller\SiteBaseController;
 use AppBundle\Site\Form\FeuilleType;
 use AppBundle\Site\Model\Repository\FeuilleRepository;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
-use Exception;
 
 class EditFeuilleAction extends SiteBaseController
 {
@@ -47,7 +45,7 @@ class EditFeuilleAction extends SiteBaseController
         $this->flashBag = $flashBag;
         $this->storageDir = $storageDir;
     }
-    
+
     /**
      * @param int $id
      * @param Request $request
@@ -56,11 +54,10 @@ class EditFeuilleAction extends SiteBaseController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function __invoke($id,Request $request)
+    public function __invoke($id, Request $request)
     {
         $feuille = $this->feuilleRepository->get($id);
         $form = $this->createForm(FeuilleType::class, $feuille);
-      
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('image')->getData();
@@ -68,23 +65,18 @@ class EditFeuilleAction extends SiteBaseController
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = hash('sha1', $originalFilename);
                 $newFilename = $safeFilename . '.' . $file->guessExtension();
-                try {
-                    $file->move($this->storageDir, $newFilename);
-                    $feuille->setIcone($newFilename);
-                } catch (FileException $e) {
-                    $this->flashBag->add('error', 'Une erreur est survenue lors du traitement de l\'icône');
-                }
+                $file->move($this->storageDir, $newFilename);
+                $feuille->setIcone($newFilename);
             }
             $this->feuilleRepository->save($feuille);
             $this->log('Modification de la Feuille ' . $feuille->getNom());
-            $this->flashBag->add('notice', 'La feuille '. $feuille->getNom() . ' a été modifiée');
+            $this->flashBag->add('notice', 'La feuille ' . $feuille->getNom() . ' a été modifiée');
             return new RedirectResponse($this->urlGenerator->generate('admin_site_feuilles_list', ['filter' => $feuille->getNom()]));
         }
-        
         $image = $feuille->getImage() !== null ? '/templates/site/images/' . $feuille->getImage() : false;
         return new Response($this->twig->render('admin/site/feuille_form.html.twig', [
             'formTitle' => 'Modifier une feuille',
-            'subTitle' => 'Feuille '. $feuille->getNom(),
+            'subTitle' => 'Feuille ' . $feuille->getNom(),
             'form' => $form->createView(),
             'image' => $image,
         ]));
