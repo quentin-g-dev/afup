@@ -26,7 +26,7 @@ class RubriqueType extends AbstractType
     public function __construct(FeuilleRepository $feuilleRepository, RubriqueRepository $rubriqueRepository, UserRepository $userRepository)
     {
         $this->rubriqueRepository = $rubriqueRepository;
-        $this->rubriqueRepository = $rubriqueRepository;
+        $this->feuilleRepository = $feuilleRepository;
         $this->userRepository = $userRepository;
     }
 

@@ -38,7 +38,4 @@ admin_site_feuilles_delete:
   defaults: {_controller: AppBundle\Controller\Admin\Site\Feuilles\DeleteFeuilleAction}
   requirements:
     id: '\d+'
-    token: '[a-zA-Z0-9_-]+'
-
-
-  
+    token: '[a-zA-Z0-9_-]+' 

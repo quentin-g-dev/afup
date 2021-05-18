@@ -467,7 +467,6 @@ services:
         factory: ["@ting", get]
         arguments: [AppBundle\TechLetter\Model\Repository\SendingRepository]
 
-
     AppBundle\Site\Form\RubriqueType:
         autowire: true
         autoconfigure: true
