@@ -135,7 +135,7 @@ class RubriqueType extends AbstractType
                 'label' => 'Date',
                 'view_timezone' => 'Europe/Paris',
                 'input'=>'datetime',
-                'years' => range(2001,date('Y')),
+                'years' => range(2001, date('Y')),
                 'attr' => [
                     'style' => 'display: flex;',
                 ],
